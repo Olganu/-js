@@ -41,7 +41,7 @@ startBtn.addEventListener('click', function () {
     dayValue.value = new Date(Date.parse(time)).getDate();
 });
 
-expensesBtn.addEventListener('click', function() {
+expensesBtn.addEventListener('click', function () {
     let sum = 0;
 
     for (let i = 0; i < expensesItem.length; i++) {
@@ -61,9 +61,9 @@ expensesBtn.addEventListener('click', function() {
     expensesValue.textContent = sum;
 
 
-}); 
+});
 
-optionalexpensesBtn.addEventListener('click', function() {
+optionalexpensesBtn.addEventListener('click', function () {
     for (let i = 0; i < optionalexpensesItem.length; i++) {
         let opt = optionalexpensesItem[i].value;
         appData.optionalExpenses[i] = opt;
@@ -72,8 +72,8 @@ optionalexpensesBtn.addEventListener('click', function() {
     }
 });
 
-countBtn.addEventListener('click', function() {
-    if(appData.budget != undefined) {
+countBtn.addEventListener('click', function () {
+    if (appData.budget != undefined) {
         appData.moneyPerDay = (appData.budget / 30).toFixed();
         daybudgetValue.textContent = appData.moneyPerDay;
         if (appData.moneyPerDay < 100) {
@@ -88,7 +88,21 @@ countBtn.addEventListener('click', function() {
     } else {
         daybudgetValue.textContent = 'Произошла ошибка';
     }
-    
+
+});
+
+incomeItem.addEventListener('input', function () {
+    let items = incomeItem.value;
+    appData.income = items.split(", ");
+    incomeValue.textContent = appData.income;
+});
+
+checkSavings.addEventListener('click', function () {
+    if (appData.savings == true) {
+        appData.savings = false;
+    } else {
+        appData.savings = true;
+    }
 });
 
 
@@ -101,17 +115,17 @@ let appData = {
     optionalExpenses: {},
     income: [],
     timeData: time,
-    savings: true,
+    savings: false,
     choeExpenenses: function () {
-        
+
     },
     detectDayBudget: function () {
-        
+
 
         alert("Ежедневный бюджет:" + appData.moneyPerDay);
     },
     detectLevel: function () {
-        
+
     },
     checkSavings: function () {
         if (appData.savings == true) {
@@ -123,15 +137,14 @@ let appData = {
         }
     },
     chooseOptExpenses: function () {
-        
+
     },
     chooseIncome: function () {
-        let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
 
         if (typeof (items) != "string" || items == "" || typeof (items) == null) {
             levelValue.textContent = ("Вы ввели некорректные данные или не ввели их вовсе");
         } else {
-            appData.income = items.split(", ");
+
             appData.income.push(prompt("Может что-то еще?"));
             appData.income.sort();
         }
@@ -146,6 +159,3 @@ let appData = {
 // for (let key in appData) {
 //     levelValue.textContent = ('Наша программа включает в себя данные: ' + key + " - " + appData[key]);
 // }
-
-
-
